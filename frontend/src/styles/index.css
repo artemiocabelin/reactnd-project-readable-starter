@@ -1,0 +1,168 @@
+p {
+  margin-bottom: 0!important;
+}
+
+.border-on {
+  border: 1px solid black;
+}
+
+.navbar * {
+  display: flex!important;
+  align-items: center!important;
+}
+.navbar-collapse.collapse {
+  display: block!important;
+  position: relative;
+}
+
+.navbar-nav>li, .navbar-nav {
+  float: left !important;
+}
+
+.navbar-nav.navbar-right:last-child {
+  margin-right: -15px !important;
+}
+
+.navbar-right {
+  float: right!important;
+}
+.nav-item {
+  list-style: none!important;
+
+}
+
+.pull-right {
+  float: right!important;
+}
+
+.post-link {
+  display: flex!important;
+  flex-direction: row!important;
+  align-items: center!important;
+}
+.link-top {
+  align-items: flex-start!important;
+  background: #f0f0f0;
+  margin: 18px;
+  padding: 5px;
+}
+
+.basic-info {
+  display: flex;
+  flex-direction: row!important;
+  width: 150%;
+  font-size: 14px;
+}
+
+.basic-info p {
+  margin-right: 1%;
+}
+
+.right-col .title {
+  font-size: 2em;
+  font-weight: normal;
+}
+
+.post-link > * {
+  margin-left: 2%;
+  margin-bottom: 1%;
+}
+
+.middle-col {
+  text-align: center;
+}
+
+.arrow {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+}
+
+.right {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.left {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.up {
+    transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+}
+
+.down {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+}
+
+.rank {
+  font-size: 24px;
+}
+
+.post-list {
+  margin-left: 3%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    font-size: 2.5em;
+}
+
+.submit-link {
+  width: 95%!important;
+}
+
+
+.sub-nav {
+  margin-top: 1%!important;
+  font-size: 18px;
+}
+.sub-nav p {
+  margin-top: 4%!important;
+}
+
+.navbar-nav {
+  margin-bottom: 0;
+  position: absolute;
+  top: 15px;
+  left: 6%;
+  color: black;
+}
+
+.navbar-nav .active {
+  background: white;
+  padding: 0 4px;
+  border: solid black;
+  border-width: 1px 1px 0 1px;
+}
+
+.d-block {
+  display:block;
+  width: 7%;
+}
+
+.comment-form {
+  margin: 18px;
+  padding: 18px;
+}
+
+.comment-list {
+  margin: 0 18px;
+  padding: 18px;
+  background: #f0f0f0;
+}
+
+.comment-block {
+  display: flex!important;
+  flex-direction: row!important;
+  align-items: center!important;
+  background: white;
+  margin: 20px 0;
+  padding: 15px;
+}
+
+.smaller-font {
+  font-size: 14px;
+}
