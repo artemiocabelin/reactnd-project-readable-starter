@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import PostLink from './component_sub_post_link'
-
 class SubPost extends Component {
     render() {
         return (
@@ -54,21 +52,39 @@ class SubPost extends Component {
                     <p>all 212 comments</p>
                     <p className="smaller-font">Sorted by: Best</p>
                     <div className="comment-block">
-                        <div className="middle-col border-on">
+                        <div className="middle-col">
                             <div className="arrow-up"><i className="arrow up"></i></div>
                             <p>*</p>
                             <div className="arrow-down"><i className="arrow down"></i></div>
                         </div>
-                        <div className="content-col border-on">
+                        <div className="content-col">
                             <p>[-] random_user * 17 points 2 hours ago</p>
                             <p>comment content here</p>
                             <p>comment content here</p>
                             <p>comment content here</p>
                             <div className="button-list">
-                            <button className="btn btn-link">Reply</button>
-                            <button className="btn btn-link">Edit</button>
-                            <button className="btn btn-link">Delete</button>
+                                <button className="btn btn-link">Reply</button>
+                                <button className="btn btn-link">Edit</button>
+                                <button className="btn btn-link">Delete</button>
+                            </div>
                         </div>
+                    </div>
+                    <div className="comment-block">
+                        <div className="middle-col">
+                            <div className="arrow-up"><i className="arrow up"></i></div>
+                            <p>*</p>
+                            <div className="arrow-down"><i className="arrow down"></i></div>
+                        </div>
+                        <div className="content-col">
+                            <p>[-] random_user * 17 points 2 hours ago</p>
+                            <p>comment content here</p>
+                            <p>comment content here</p>
+                            <p>comment content here</p>
+                            <div className="button-list">
+                                <button className="btn btn-link">Reply</button>
+                                <button className="btn btn-link">Edit</button>
+                                <button className="btn btn-link">Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>

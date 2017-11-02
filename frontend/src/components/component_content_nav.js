@@ -5,7 +5,7 @@ class SubNavigation extends Component {
     render() {
         return (
                 <div className="col-md-3 sub-nav">
-                    <button className="btn btn-primary submit-link">Submit New Post</button>
+                    <Link to="/posts/new" className="btn btn-primary submit-link">Submit New Post</Link>
                     <p>Categories:</p>
                     <ul> 
                         <li>

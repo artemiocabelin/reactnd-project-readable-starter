@@ -166,3 +166,35 @@ p {
 .smaller-font {
   font-size: 14px;
 }
+
+.content-col {
+  margin-left: 20px;
+}
+.content-col > p:nth-child(2){
+  margin-top: 4px;
+}
+
+.form-wrapper {
+  width: 40%;
+  margin: 40px auto;
+  background: #f0f0f0;
+  padding: 20px;
+}
+
+.container-fluid button {
+  width: 100%!important;
+  height: 60px!important;
+  font-size: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form-group label {
+  font-size: 30px;
+}
+
+.form-select {
+  height: 40px;
+}
