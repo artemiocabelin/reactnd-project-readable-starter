@@ -1,16 +1,53 @@
+import _ from 'lodash';
+import sortBy from 'sort-by';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { fetchPosts } from '../actions';
 import PostLink from './component_sub_post_link'
 
 class SubContent extends Component {
+    componentDidMount() {
+        this.props.fetchPosts()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const { category } = nextProps.match.params
+        if (this.props.match.params.category !== category) {
+            this.props.fetchPosts(category)
+        }
+    }
+    
+    renderPostList(postList) {
+        return _.map(this.sortPostList(postList, this.props.order), (post, postKey) => this.renderPost(post, postKey))
+    }
+
+    sortPostList(postList, sortOrder) {
+        return postList.sort(sortBy(sortOrder));
+    }
+
+    renderPost(post, postKey) {
+        post.rank = postKey + 1;
+        return (
+            <PostLink key={post.id} post={post} />
+        )
+    }
+
     render() {
         return (
-                <div className="col-md-9">
-                    <p className="post-list">All Posts</p>
-                    <PostLink />
-                    <PostLink />
-                </div>
+            <div className="col-md-9">
+                <p className="post-list">All Posts</p>
+                {this.renderPostList(this.props.posts)}
+            </div>
         );
     }
 }
 
-export default SubContent;
+function mapStateToProps(state) {
+    return {
+        posts: state.posts, 
+        order: state.order
+    }
+}
+
+export default connect(mapStateToProps, { fetchPosts })(SubContent);

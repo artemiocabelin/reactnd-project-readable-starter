@@ -28,7 +28,7 @@ p {
 }
 .nav-item {
   list-style: none!important;
-
+  cursor: pointer;
 }
 
 .pull-right {
@@ -197,4 +197,38 @@ p {
 
 .form-select {
   height: 40px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.close-parent {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: -8px;
+  top: -8px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+}
+.close:hover {
+  opacity: 1;
+}
+.close:before, .close:after {
+  position: absolute;
+  left: 15px;
+  content: ' ';
+  height: 33px;
+  width: 2px;
+  background-color: #333;
+}
+.close:before {
+  transform: rotate(45deg);
+}
+.close:after {
+  transform: rotate(-45deg);
 }

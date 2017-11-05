@@ -12,6 +12,7 @@ class App extends Component {
         <MainNavigation />
         <Switch>
           <Route path="/posts/new" component={PostForm} />
+          <Route path="/posts/edit/:id" component={PostForm} />
           <Route path="/" component={MainContent} />
         </Switch>
       </div>
