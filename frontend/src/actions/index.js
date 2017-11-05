@@ -49,13 +49,21 @@ export function fetchCategories() {
     }
 }
 
-export function createPost(values, callback) {
-    console.log(values)
-    const request = axios.post(`${ROOT_URL}/posts`, values, headers)
-            .then((res) => {
-                callback(res.data.id)
-                return res.data
-            })
+export function createPost(values, callback, params) {
+    let request;
+    if(params) {
+        request = axios.put(`${ROOT_URL}/posts/${params}`, values, headers)
+                    .then((res) => {
+                        callback(res.data.id)
+                        return res.data
+                    })
+    } else {
+        request = axios.post(`${ROOT_URL}/posts`, values, headers)
+                    .then((res) => {
+                        callback(res.data.id)
+                        return res.data
+                    })
+    }
     return {
         type: CREATE_POST,
         payload: request
