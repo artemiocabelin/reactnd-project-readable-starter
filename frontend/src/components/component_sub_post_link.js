@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import { votePost } from '../actions'
+import { votePost, deletePost } from '../actions'
 
 class PostLink extends Component {
     render() {
-        const { post: { id, voteScore, title, author, category, commentCount, timestamp, rank}, votePost } = this.props
+        const { post: { id, voteScore, title, author, category, commentCount, timestamp, rank}, votePost, deletePost } = this.props
         return (
             <div className="post-link">
                 <span className="rank">{rank}</span>
@@ -25,7 +25,7 @@ class PostLink extends Component {
                     <div className="button-list">
                         <Link to={`/posts/${id}`}>{commentCount} comments</Link>
                         <Link to={`/posts/edit/${id}`} className="btn btn-link">Edit</Link>
-                        <button className="btn btn-link">Delete</button>
+                        <button onClick={() => deletePost(id)} className="btn btn-link">Delete</button>
                     </div>
                 </div>
             </div>
@@ -33,4 +33,4 @@ class PostLink extends Component {
     }
 }
 
-export default connect(null, { votePost })(PostLink);
+export default connect(null, { votePost, deletePost })(PostLink);

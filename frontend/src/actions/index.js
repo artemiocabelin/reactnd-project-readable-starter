@@ -6,6 +6,7 @@ export const VOTE_SCORE = 'VOTE_SCORE';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const CREATE_POST = 'CREATE_POST';
 export const LOAD_INIT_VALS = 'LOAD_INIT_VALS';
+export const DELETE_POST = 'DELETE_POST';
 
 const ROOT_URL = 'http://localhost:3001'
 const headers = {
@@ -79,6 +80,19 @@ export function loadInitVals(data, post) {
     }
     return {
         type: LOAD_INIT_VALS,
+        payload: request
+    }
+}
+
+export function deletePost(id) {
+    console.log(id)
+    const request = axios.delete(`${ROOT_URL}/posts/${id}`, headers)
+                // .then((res) => {
+                //     callback(res.data.id)
+                //     return res.data
+                // })
+    return {
+        type: DELETE_POST,
         payload: request
     }
 }

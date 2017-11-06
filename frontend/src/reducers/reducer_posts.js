@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { FETCH_POSTS, VOTE_SCORE, CREATE_POST } from '../actions'
+import { FETCH_POSTS, VOTE_SCORE, CREATE_POST, DELETE_POST } from '../actions'
 
 export default function (state = [], action) {
     switch(action.type) {
@@ -21,6 +21,10 @@ export default function (state = [], action) {
                 return newState
             }
             return state.concat([action.payload])
+
+        case DELETE_POST:
+            newState = [ ...state ]
+            return newState.filter(post => post.id !== action.payload.data.id)
 
         default:
             return state
