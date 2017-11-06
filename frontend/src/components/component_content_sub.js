@@ -27,7 +27,6 @@ class SubContent extends Component {
     }
 
     renderPost(post, postKey) {
-        post.rank = postKey + 1;
         return (
             <PostLink key={post.id} post={post} />
         )

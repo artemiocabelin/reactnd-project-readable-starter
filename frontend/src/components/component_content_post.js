@@ -1,42 +1,38 @@
+import Moment from 'react-moment';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { getPost, votePost } from '../actions';
 
 class SubPost extends Component {
+    componentDidMount() {
+        this.props.getPost(this.props.match.params.id)
+    }
+    
     render() {
+        const { post: {id, voteScore, title, timestamp, author, category, body, commentCount }, votePost} = this.props
         return (
             <div className="col-md-9">
                 <div className="post-link link-top">
                     <div className="middle-col">
-                        <div className="arrow-up"><i className="arrow up"></i></div>
-                        <div className="score">123</div>
-                        <div className="arrow-down"><i className="arrow down"></i></div>
+                        <a onClick={()=> votePost(id, "upVote")} className="clickable"><i className="arrow up"></i></a>
+                        <div className="score">{voteScore}</div>
+                        <a onClick={()=> votePost(id, "downVote")} className="clickable"><i className="arrow down"></i></a>
                     </div>
                     <div className="right-col">
-                        <p className="title"><Link to="/posts/1">This is the Title of the Post</Link></p>
+                        <p className="title"><Link to={`/posts/${id}`}>{title}</Link></p>
                         <div className="basic-info">
-                            <p>Submitted 4 hours ago</p>
-                            <p>By: Random User to</p>
-                            <p>Category: React</p>
+                            <p>Submitted <Moment fromNow>{timestamp}</Moment></p>
+                            <p>By: {author} to</p>
+                            <p>Category: {category}</p>
                         </div>
                         <div>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
-                            <p>...Content goes here</p>
+                            <p className="post-content">{body}</p>
                         </div>
                         <div className="button-list">
-                            <span>212 comments</span>
-                            <button className="btn btn-link">Edit</button>
+                            <span>{commentCount} {commentCount > 1 ? 'comments' : 'comment'}</span>
+                            <Link to={`/posts/edit/${id}`} className="btn btn-link">Edit</Link>
                             <button className="btn btn-link">Delete</button>
                         </div>
                     </div>
@@ -93,4 +89,10 @@ class SubPost extends Component {
     }
 }
 
-export default SubPost;
+function mapStateToProps(state) {
+    return {
+        post: state.post
+    }
+}
+
+export default connect(mapStateToProps, { getPost, votePost })(SubPost);

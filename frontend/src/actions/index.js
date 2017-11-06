@@ -1,8 +1,10 @@
 import axios from 'axios';
 
 export const FETCH_POSTS = 'FETCH_POSTS';
+export const FETCH_POST = 'FETCH_POST';
 export const SET_SORT_ORDER = 'SET_SORT_ORDER';
 export const VOTE_SCORE = 'VOTE_SCORE';
+export const VOTE_POST_SCORE = 'VOTE_POST_SCORE';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const CREATE_POST = 'CREATE_POST';
 export const LOAD_INIT_VALS = 'LOAD_INIT_VALS';
@@ -37,11 +39,15 @@ export function setSortOrder(order) {
 export function votePost(id, option) {
     const data = { option }
     const request = axios.post(`${ROOT_URL}/posts/${id}`, data, headers)
-    return {
-        type: VOTE_SCORE,
-        payload: request
+    return (dispatch) => {
+        request.then(({data}) => {
+                    dispatch({type: VOTE_SCORE, payload: data})
+                    return data
+                })
+               .then((data) => dispatch({type: VOTE_POST_SCORE, payload: data}));
     }
 }
+
 export function fetchCategories() {
     const request = axios.get(`${ROOT_URL}/categories`, headers)
     return {
@@ -85,14 +91,17 @@ export function loadInitVals(data, post) {
 }
 
 export function deletePost(id) {
-    console.log(id)
     const request = axios.delete(`${ROOT_URL}/posts/${id}`, headers)
-                // .then((res) => {
-                //     callback(res.data.id)
-                //     return res.data
-                // })
     return {
         type: DELETE_POST,
+        payload: request
+    }
+}
+
+export function getPost(id) {
+    const request = axios.get(`${ROOT_URL}/posts/${id}`, headers)
+    return {
+        type: FETCH_POST,
         payload: request
     }
 }

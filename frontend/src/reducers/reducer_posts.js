@@ -8,8 +8,8 @@ export default function (state = [], action) {
 
         case VOTE_SCORE:
             let newState = [ ...state ]
-            let index = state.findIndex(post => post.id === action.payload.data.id)
-            newState[index] = action.payload.data
+            let index = state.findIndex(post => post.id === action.payload.id)
+            newState[index] = action.payload
             return newState
 
         case CREATE_POST:

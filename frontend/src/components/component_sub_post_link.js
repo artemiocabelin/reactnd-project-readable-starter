@@ -6,10 +6,9 @@ import { votePost, deletePost } from '../actions'
 
 class PostLink extends Component {
     render() {
-        const { post: { id, voteScore, title, author, category, commentCount, timestamp, rank}, votePost, deletePost } = this.props
+        const { post: { id, voteScore, title, author, category, commentCount, timestamp}, votePost, deletePost } = this.props
         return (
             <div className="post-link">
-                <span className="rank">{rank}</span>
                 <div className="middle-col">
                     <a onClick={()=> votePost(id, "upVote")} className="clickable"><i className="arrow up"></i></a>
                     <div className="score">{voteScore}</div>
@@ -23,7 +22,7 @@ class PostLink extends Component {
                         <p>Category: {category}</p>
                     </div>
                     <div className="button-list">
-                        <Link to={`/posts/${id}`}>{commentCount} comments</Link>
+                        <Link to={`/posts/${id}`}>{commentCount} {commentCount > 1 ? 'comments' : 'comment'}</Link>
                         <Link to={`/posts/edit/${id}`} className="btn btn-link">Edit</Link>
                         <button onClick={() => deletePost(id)} className="btn btn-link">Delete</button>
                     </div>
