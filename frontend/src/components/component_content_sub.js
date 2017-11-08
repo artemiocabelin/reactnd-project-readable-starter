@@ -8,7 +8,8 @@ import PostLink from './component_sub_post_link'
 
 class SubContent extends Component {
     componentDidMount() {
-        this.props.fetchPosts()
+        const { category } = this.props.match.params
+        category ? this.props.fetchPosts(category) : this.props.fetchPosts()
     }
 
     componentWillReceiveProps(nextProps) {

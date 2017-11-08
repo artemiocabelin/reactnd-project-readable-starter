@@ -40,7 +40,7 @@ class MainNavigation extends Component {
     const { isActive, order, label } = sortOrder
     return (
       <li key={sortKey} className="nav-item">
-        <a className={`nav-link ${isActive && 'active'}`} onClick={() => this.setToActive(order, sortKey)}>{label}</a>
+        <a className={`nav-link ${isActive && 'active'}`} onClick={() => order && this.setToActive(order, sortKey)}>{label}</a>
       </li>
     )
   }
@@ -62,21 +62,26 @@ class MainNavigation extends Component {
   }
   
   render() {
+    const { sortOrders } = this.state
+    const { commentNav } = this.props
+
     return (
       <nav className="navbar navbar-light bg-faded">
         <Link className="navbar-brand" to="/">Readable</Link>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav">
-            {_.map(this.state.sortOrders, (sortOrder, sortKey) => this.renderSortButton(sortOrder, sortKey))}
+            { commentNav.isActive ? this.renderSortButton(commentNav, 'commentNav') : _.map(sortOrders, (sortOrder, sortKey) => this.renderSortButton(sortOrder, sortKey))}
           </ul>
-          <form className="form-inline my-2 my-lg-0 pull-right">
-            <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-            <button className="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
       </nav>
     );
   }
 }
 
-export default connect(null, { setSortOrder })(MainNavigation);
+function mapStateToProps(state) {
+  return {
+    commentNav : state.commentNav
+  }
+}
+
+export default connect(mapStateToProps, { setSortOrder })(MainNavigation);

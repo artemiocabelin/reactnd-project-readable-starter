@@ -24,7 +24,7 @@ export default function (state = [], action) {
 
         case DELETE_POST:
             newState = [ ...state ]
-            return newState.filter(post => post.id !== action.payload.data.id)
+            return newState.filter(post => post.id !== action.payload.id)
 
         default:
             return state

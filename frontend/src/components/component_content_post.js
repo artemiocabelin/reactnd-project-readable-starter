@@ -1,17 +1,42 @@
+import _ from 'lodash'
+import sortBy from 'sort-by';
 import Moment from 'react-moment';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getPost, votePost } from '../actions';
+import { getPost, votePost, fetchComments, deletePost, createNewInitVals, setCommentNavStatus } from '../actions';
+import CommentForm from './component_new_comment_form'
+import Comment from './component_comment'
 
 class SubPost extends Component {
-    componentDidMount() {
-        this.props.getPost(this.props.match.params.id)
-    }
     
+    componentDidMount() {
+        const { id } = this.props.match.params
+        this.props.getPost(id)
+        this.props.fetchComments(id)
+        this.props.setCommentNavStatus(true)
+    }
+
+    componentWillUnmount() {
+        this.props.setCommentNavStatus(false)
+    }
+
+    renderComment(comment) {
+        return ( <Comment key={comment.id} comment={comment}/> )
+    }
+
+    sortCommentList(commentList, sortOrder) {
+        return commentList.sort(sortBy(sortOrder));
+    }
+
     render() {
-        const { post: {id, voteScore, title, timestamp, author, category, body, commentCount }, votePost} = this.props
+        const { post: {id, voteScore, title, timestamp, author, category, body }, votePost, deletePost} = this.props
+        
+        if(!id) {
+            return (<div className="col-md-9 text-center no-comments">Post Not Found</div>)
+        }
+
         return (
             <div className="col-md-9">
                 <div className="post-link link-top">
@@ -31,58 +56,16 @@ class SubPost extends Component {
                             <p className="post-content">{body}</p>
                         </div>
                         <div className="button-list">
-                            <span>{commentCount} {commentCount > 1 ? 'comments' : 'comment'}</span>
+                            <span>{this.props.comments.length} {this.props.comments.length > 1 ? 'comments' : 'comment'}</span>
                             <Link to={`/posts/edit/${id}`} className="btn btn-link">Edit</Link>
-                            <button className="btn btn-link">Delete</button>
+                            <button onClick={() => deletePost(id, this.props.history.push('/'))} className="btn btn-link">Delete</button>
                         </div>
                     </div>
-
                 </div>
-                <div className="comment-form">
-                    <form>
-                        <textarea name="" id="" cols="60" rows="5"></textarea>
-                        <button className="btn btn-primary d-block">Submit</button>
-                    </form>
-                </div>
+                <CommentForm form={'NewCommentForm'} parentId={this.props.match.params.id} />
                 <div className="comment-list">
-                    <p>all 212 comments</p>
-                    <p className="smaller-font">Sorted by: Best</p>
-                    <div className="comment-block">
-                        <div className="middle-col">
-                            <div className="arrow-up"><i className="arrow up"></i></div>
-                            <p>*</p>
-                            <div className="arrow-down"><i className="arrow down"></i></div>
-                        </div>
-                        <div className="content-col">
-                            <p>[-] random_user * 17 points 2 hours ago</p>
-                            <p>comment content here</p>
-                            <p>comment content here</p>
-                            <p>comment content here</p>
-                            <div className="button-list">
-                                <button className="btn btn-link">Reply</button>
-                                <button className="btn btn-link">Edit</button>
-                                <button className="btn btn-link">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="comment-block">
-                        <div className="middle-col">
-                            <div className="arrow-up"><i className="arrow up"></i></div>
-                            <p>*</p>
-                            <div className="arrow-down"><i className="arrow down"></i></div>
-                        </div>
-                        <div className="content-col">
-                            <p>[-] random_user * 17 points 2 hours ago</p>
-                            <p>comment content here</p>
-                            <p>comment content here</p>
-                            <p>comment content here</p>
-                            <div className="button-list">
-                                <button className="btn btn-link">Reply</button>
-                                <button className="btn btn-link">Edit</button>
-                                <button className="btn btn-link">Delete</button>
-                            </div>
-                        </div>
-                    </div>
+                    <p>all {this.props.comments.length} {this.props.comments.length > 1 ? 'comments' : 'comment'}</p>
+                    {this.props.comments.length > 0 ? _.map(this.sortCommentList(this.props.comments, '-voteScore'), this.renderComment.bind(this)) : (<div className="no-comments">No comments</div>)}
                 </div>
             </div>
         );
@@ -91,8 +74,9 @@ class SubPost extends Component {
 
 function mapStateToProps(state) {
     return {
-        post: state.post
+        post: state.post,
+        comments: state.comments,
     }
 }
 
-export default connect(mapStateToProps, { getPost, votePost })(SubPost);
+export default connect(mapStateToProps, { getPost, votePost, fetchComments, deletePost, createNewInitVals, setCommentNavStatus })(SubPost);

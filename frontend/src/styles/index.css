@@ -236,3 +236,16 @@ p {
 .post-content {
   margin-top: 10px;
 }
+
+.no-comments {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.edit-comment-form {
+  padding: 18px;
+}
+
+.text-area {
+  width: 1000px;
+}

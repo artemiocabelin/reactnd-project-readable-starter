@@ -15,14 +15,14 @@ class PostLink extends Component {
                     <a onClick={()=> votePost(id, "downVote")} className="clickable"><i className="arrow down"></i></a>
                 </div>
                 <div className="right-col">
-                    <p className="title"><Link to={`/posts/${id}`}>{title}</Link></p>
+                    <p className="title"><Link to={`/${category}/${id}`}>{title}</Link></p>
                     <div className="basic-info">
                         <p>Submitted <Moment fromNow>{timestamp}</Moment></p>
                         <p>By: {author} to</p>
                         <p>Category: {category}</p>
                     </div>
                     <div className="button-list">
-                        <Link to={`/posts/${id}`}>{commentCount} {commentCount > 1 ? 'comments' : 'comment'}</Link>
+                        <Link to={`/${category}/${id}`}>{commentCount} {commentCount > 1 ? 'comments' : 'comment'}</Link>
                         <Link to={`/posts/edit/${id}`} className="btn btn-link">Edit</Link>
                         <button onClick={() => deletePost(id)} className="btn btn-link">Delete</button>
                     </div>

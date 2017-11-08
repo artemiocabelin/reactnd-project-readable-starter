@@ -10,7 +10,7 @@ class MainContent extends Component {
         return (
             <div className="row">
                 <Switch>
-                    <Route path="/posts/:id" component={SubPost} />
+                    <Route path="/:category/:id" component={SubPost} />
                     <Route path="/:category" component={SubContent} />
                     <Route path="/" component={SubContent} />
                 </Switch>

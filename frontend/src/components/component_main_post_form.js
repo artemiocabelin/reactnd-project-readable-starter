@@ -94,8 +94,8 @@ class PostForm extends Component {
     
     onSubmit(values) {
         const { createPost, history, match } = this.props
-        createPost(values, (id) => {
-            history.push(`/posts/${id}`);
+        createPost(values, (id, category) => {
+            history.push(`/${category}/${id}`);
         }, match.params.id);
     }
     

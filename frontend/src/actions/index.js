@@ -8,7 +8,14 @@ export const VOTE_POST_SCORE = 'VOTE_POST_SCORE';
 export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
 export const CREATE_POST = 'CREATE_POST';
 export const LOAD_INIT_VALS = 'LOAD_INIT_VALS';
+export const CREATE_NEW_INIT_VALS = 'CREATE_NEW_INIT_VALS';
 export const DELETE_POST = 'DELETE_POST';
+export const FETCH_COMMENTS = 'FETCH_COMMENTS';
+export const CREATE_COMMENT = 'CREATE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const VOTE_COMMENT = 'VOTE_COMMENT';
+export const SET_COMMENT_NAV_STATUS = 'SET_COMMENT_NAV_STATUS';
 
 const ROOT_URL = 'http://localhost:3001'
 const headers = {
@@ -61,13 +68,13 @@ export function createPost(values, callback, params) {
     if(params) {
         request = axios.put(`${ROOT_URL}/posts/${params}`, values, headers)
                     .then((res) => {
-                        callback(res.data.id)
+                        callback(res.data.id, res.data.category)
                         return res.data
                     })
     } else {
         request = axios.post(`${ROOT_URL}/posts`, values, headers)
                     .then((res) => {
-                        callback(res.data.id)
+                        callback(res.data.id, res.data.category)
                         return res.data
                     })
     }
@@ -77,10 +84,10 @@ export function createPost(values, callback, params) {
     }
 }
 
-export function loadInitVals(data, post) {
+export function loadInitVals(data, extraData) {
     let request;
-    if(post) {
-        request = Object.assign({}, data, post)
+    if(extraData) {
+        request = Object.assign({}, data, extraData)
     } else {
         request = data
     }
@@ -90,8 +97,19 @@ export function loadInitVals(data, post) {
     }
 }
 
-export function deletePost(id) {
+export function createNewInitVals(data) {
+    return {
+        type: CREATE_NEW_INIT_VALS,
+        payload: data
+    }
+}
+
+export function deletePost(id, callback) {
     const request = axios.delete(`${ROOT_URL}/posts/${id}`, headers)
+                    .then((res) => {
+                        callback && callback()
+                        return res.data
+                    })
     return {
         type: DELETE_POST,
         payload: request
@@ -103,5 +121,62 @@ export function getPost(id) {
     return {
         type: FETCH_POST,
         payload: request
+    }
+}
+
+export function fetchComments(postId) {
+    const request = axios.get(`${ROOT_URL}/posts/${postId}/comments`, headers)
+    return {
+        type: FETCH_COMMENTS,
+        payload: request
+    }
+}
+
+export function createComment(data) {
+    console.log(data)
+    const request = axios.post(`${ROOT_URL}/comments`, data, headers)
+                    .then((res) => {
+                        return res.data
+                    })
+    return {
+        type: CREATE_COMMENT,
+        payload: request
+    }
+}
+
+export function editComment(data) {
+    const request = axios.put(`${ROOT_URL}/comments/${data.id}`, data, headers)
+                    .then((res) => {
+                        return res.data
+                    })
+    return {
+        type: EDIT_COMMENT,
+        payload: request
+    }
+}
+export function deleteComment(id) {
+    const request = axios.delete(`${ROOT_URL}/comments/${id}`, headers)
+                    .then((res) => {
+                        return res.data
+                    })
+    return {
+        type: DELETE_COMMENT,
+        payload: request
+    }
+}
+
+export function voteComment(id, option) {
+    const data = { option }
+    const request = axios.post(`${ROOT_URL}/comments/${id}`, data, headers)
+    return {
+        type: VOTE_COMMENT,
+        payload: request
+    }
+}
+
+export function setCommentNavStatus(status) {
+    return {
+        type: SET_COMMENT_NAV_STATUS,
+        payload: status
     }
 }
