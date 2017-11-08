@@ -5,9 +5,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getPost, votePost, fetchComments, deletePost, createNewInitVals, setCommentNavStatus } from '../actions';
-import CommentForm from './component_new_comment_form'
-import Comment from './component_comment'
+import { getPost, votePost, fetchComments, deletePost, createNewInitVals, setCommentNavStatus } from '../../../actions';
+import NewCommentForm from './blocks/forms/component_comment_form_new'
+import CommentBlock from './blocks/component_comment_block'
 
 class SubPost extends Component {
     
@@ -23,7 +23,7 @@ class SubPost extends Component {
     }
 
     renderComment(comment) {
-        return ( <Comment key={comment.id} comment={comment}/> )
+        return ( <CommentBlock key={comment.id} comment={comment}/> )
     }
 
     sortCommentList(commentList, sortOrder) {
@@ -62,7 +62,7 @@ class SubPost extends Component {
                         </div>
                     </div>
                 </div>
-                <CommentForm form={'NewCommentForm'} parentId={this.props.match.params.id} />
+                <NewCommentForm form={'NewCommentForm'} parentId={this.props.match.params.id} />
                 <div className="comment-list">
                     <p>all {this.props.comments.length} {this.props.comments.length > 1 ? 'comments' : 'comment'}</p>
                     {this.props.comments.length > 0 ? _.map(this.sortCommentList(this.props.comments, '-voteScore'), this.renderComment.bind(this)) : (<div className="no-comments">No comments</div>)}

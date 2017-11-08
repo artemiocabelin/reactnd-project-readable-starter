@@ -3,8 +3,8 @@ import sortBy from 'sort-by';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchPosts } from '../actions';
-import PostLink from './component_sub_post_link'
+import { fetchPosts } from '../../../actions';
+import PostLink from './blocks/component_post_link'
 
 class SubContent extends Component {
     componentDidMount() {

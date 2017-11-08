@@ -8,7 +8,7 @@ import thunk from 'redux-thunk'
 
 import './styles/index.css';
 import reducers from './reducers'
-import App from './components/component_main';
+import App from './components/component_app';
 import registerServiceWorker from './registerServiceWorker';
 
 const createStoreWithMiddleware = applyMiddleware(promise, thunk)(createStore)

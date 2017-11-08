@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { editComment } from '../actions'
+import { editComment } from '../../../../../actions'
 
 class EditCommentForm extends Component {
 

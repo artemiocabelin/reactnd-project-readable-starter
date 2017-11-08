@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import { votePost, deletePost } from '../actions'
+import { votePost, deletePost } from '../../../../actions'
 
 class PostLink extends Component {
     render() {

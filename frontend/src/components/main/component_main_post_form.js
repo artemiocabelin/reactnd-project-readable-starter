@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid/v1';
 
-import { createPost, fetchCategories, loadInitVals, fetchPosts } from '../actions'
+import { createPost, fetchCategories, loadInitVals, fetchPosts } from '../../actions'
 
 class PostForm extends Component {
 

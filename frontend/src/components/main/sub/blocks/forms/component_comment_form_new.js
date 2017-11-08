@@ -3,7 +3,7 @@ import { Field, reduxForm, reset } from 'redux-form';
 import { connect } from 'react-redux';
 import uuidv1 from 'uuid/v1';
 
-import { loadInitVals, createComment, createNewInitVals } from '../actions'
+import { loadInitVals, createComment, createNewInitVals } from '../../../../../actions'
 
 class CommentForm extends Component {
 
