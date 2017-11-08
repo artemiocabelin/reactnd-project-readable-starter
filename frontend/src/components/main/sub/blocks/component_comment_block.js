@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { voteComment, deleteComment } from '../../../../actions';
-import EditCommentForm from './forms/component_comment_form_edit'
+import EditCommentForm from '../../../forms/component_comment_form_edit'
 
 class Comment extends Component {
     state = {

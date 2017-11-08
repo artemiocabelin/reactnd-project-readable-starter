@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { editComment } from '../../../../../actions'
+import { editComment } from '../../actions'
+import validate from './validations/validation_comment_form'
 
 class EditCommentForm extends Component {
 
@@ -12,11 +13,7 @@ class EditCommentForm extends Component {
         
         return (
             <div className={className}>
-                <textarea 
-                    className="text-area"
-                    rows="4"
-                    {...field.input}
-                ></textarea>
+                <textarea className="text-area" rows="4" {...field.input}></textarea>
                 <div className="text-help">
                     {touched ? error : ''}
                 </div>
@@ -44,15 +41,6 @@ class EditCommentForm extends Component {
             </div>
         );
     }
-}
-
-function validate(values) {
-    let errors = {}
-    if (!values.body) {
-        errors.body = 'Please enter content';
-    }
-
-    return errors
 }
 
 export default connect(null, { editComment })(

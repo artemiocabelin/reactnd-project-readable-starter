@@ -2,38 +2,25 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setSortOrder } from '../../actions';
 
-class MainNavigation extends Component {
+import { setSortOrder } from '../../actions';
+import { SORT_ORDERS } from './configurations/config_sort_nav_bar'
+
+class SortNavBar extends Component {
   state = {
-    sortOrders: {
-      top: {
-        label: 'Top',
-        isActive: false,
-        order: '-voteScore'
-      },
-      newest: {
-        label: 'Newest',
-        isActive: false,
-        order: '-timestamp'
-      },
-      oldest: {
-        label: 'Oldest',
-        isActive: false,
-        order: 'timestamp'
-      },
-      controversial: {
-        label: 'Controversial',
-        isActive: false,
-        order: 'voteScore'
-      }
-    }
+    sortOrders: {}
   }
 
   activeButtonHistory = []
+
+  componentWillMount() {
+    this.setState({sortOrders: SORT_ORDERS })
+  }
   
   componentDidMount() {
-    this.setToActive('-voteScore', 'top');
+    if(Object.keys(this.state.sortOrders).length > 0) {
+      this.setToActive('-voteScore', 'top');
+    }
   }
 
   renderSortButton(sortOrder, sortKey) {
@@ -47,17 +34,21 @@ class MainNavigation extends Component {
 
   setToActive(order, key) {
     this.props.setSortOrder(order);
-    this.setOnlyThisButtonToActive(key);
+    let { sortOrders } = this.state
+    this.deactivatePreviousActiveButton(sortOrders)
+    this.activateNextActiveButton(sortOrders, key)
   }
 
-  setOnlyThisButtonToActive(buttonKey) {
-    let newOrdersState = this.state.sortOrders;
+  deactivatePreviousActiveButton(state) {
     if(this.activeButtonHistory.length > 0) {
       const prevActiveButton = this.activeButtonHistory[this.activeButtonHistory.length - 1]
-      newOrdersState[prevActiveButton]['isActive'] = false;
+      state[prevActiveButton]['isActive'] = false;
     }
-    newOrdersState[buttonKey]['isActive'] = true;
-    this.setState({sortOrders: newOrdersState});
+  }
+
+  activateNextActiveButton(state, buttonKey) {
+    state[buttonKey]['isActive'] = true;
+    this.setState({sortOrders: state});
     this.activeButtonHistory.push(buttonKey);
   }
   
@@ -84,4 +75,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { setSortOrder })(MainNavigation);
+export default connect(mapStateToProps, { setSortOrder })(SortNavBar);
