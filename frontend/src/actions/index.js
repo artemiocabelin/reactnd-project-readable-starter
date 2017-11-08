@@ -22,6 +22,7 @@ const headers = {
     headers: { 'Authorization': 'whatever-you-want' },
 }
 
+// axios
 export function fetchPosts(category) {
     let request;
     if(category) {
@@ -33,13 +34,6 @@ export function fetchPosts(category) {
     return {
         type: FETCH_POSTS,
         payload: request
-    }
-}
-
-export function setSortOrder(order) {
-    return {
-        type: SET_SORT_ORDER,
-        payload: order
     }
 }
 
@@ -84,26 +78,6 @@ export function createPost(values, callback, params) {
     }
 }
 
-export function loadInitVals(data, extraData) {
-    let request;
-    if(extraData) {
-        request = Object.assign({}, data, extraData)
-    } else {
-        request = data
-    }
-    return {
-        type: LOAD_INIT_VALS,
-        payload: request
-    }
-}
-
-export function createNewInitVals(data) {
-    return {
-        type: CREATE_NEW_INIT_VALS,
-        payload: data
-    }
-}
-
 export function deletePost(id, callback) {
     const request = axios.delete(`${ROOT_URL}/posts/${id}`, headers)
                     .then((res) => {
@@ -133,7 +107,6 @@ export function fetchComments(postId) {
 }
 
 export function createComment(data) {
-    console.log(data)
     const request = axios.post(`${ROOT_URL}/comments`, data, headers)
                     .then((res) => {
                         return res.data
@@ -171,6 +144,34 @@ export function voteComment(id, option) {
     return {
         type: VOTE_COMMENT,
         payload: request
+    }
+}
+
+// non-axios
+export function setSortOrder(order) {
+    return {
+        type: SET_SORT_ORDER,
+        payload: order
+    }
+}
+
+export function loadInitVals(data, extraData) {
+    let request;
+    if(extraData) {
+        request = Object.assign({}, data, extraData)
+    } else {
+        request = data
+    }
+    return {
+        type: LOAD_INIT_VALS,
+        payload: request
+    }
+}
+
+export function createNewInitVals(data) {
+    return {
+        type: CREATE_NEW_INIT_VALS,
+        payload: data
     }
 }
 
