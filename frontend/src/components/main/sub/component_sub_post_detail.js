@@ -44,7 +44,7 @@ class SubPost extends Component {
                     <VoteBlock />
                     <div className="right-col">
                         <DetailBlock />
-                        <OptionBlock />
+                        <OptionBlock history={this.props.history} />
                     </div>
                 </div>
                 <NewCommentForm form={'NewCommentForm'} parentId={this.props.match.params.id} />

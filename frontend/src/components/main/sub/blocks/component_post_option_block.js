@@ -7,7 +7,6 @@ import { deletePost } from '../../../../actions'
 class OptionBlock extends Component {
     render() {
         const { post: { id }, deletePost} = this.props
-
         return (
             <div className="button-list">
                 <span>{this.props.comments.length} {this.props.comments.length > 1 ? 'comments' : 'comment'}</span>
