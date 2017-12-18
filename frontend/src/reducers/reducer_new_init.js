@@ -1,8 +1,8 @@
-import { CREATE_NEW_INIT_VALS } from '../actions'
+import * as types from '../actions/types'
 
 export default function (state = {}, action) {
     switch(action.type) {
-        case CREATE_NEW_INIT_VALS:
+        case types.CREATE_NEW_INIT_VALS:
             return action.payload
 
         default:

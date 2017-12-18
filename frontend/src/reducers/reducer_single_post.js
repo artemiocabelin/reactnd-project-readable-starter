@@ -1,11 +1,11 @@
-import { FETCH_POST, VOTE_POST_SCORE } from '../actions'
+import * as types from '../actions/types'
 
 export default function (state = {}, action) {
     switch(action.type) {
-        case FETCH_POST:
+        case types.FETCH_POST:
             return action.payload.data
 
-        case VOTE_POST_SCORE:
+        case types.VOTE_POST_SCORE:
             return { ...state, voteScore : action.payload.voteScore }
 
         default:

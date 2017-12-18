@@ -1,15 +1,15 @@
 import _ from 'lodash'
-import { FETCH_COMMENTS, CREATE_COMMENT, VOTE_COMMENT, EDIT_COMMENT, DELETE_COMMENT } from '../actions'
+import * as types from '../actions/types'
 
 export default function (state = [], action) {
     switch(action.type) {
-        case FETCH_COMMENTS:
+        case types.FETCH_COMMENTS:
             return action.payload.data
 
-        case CREATE_COMMENT:
+        case types.CREATE_COMMENT:
             return state.concat([action.payload])
 
-        case EDIT_COMMENT:
+        case types.EDIT_COMMENT:
             let newState = [ ...state ]
             let { id } = action.payload
             if(_.some(state, {'id':id})) {
@@ -19,11 +19,11 @@ export default function (state = [], action) {
             }
             return state.concat([action.payload])
 
-        case DELETE_COMMENT:
+        case types.DELETE_COMMENT:
             newState = [ ...state ]
             return newState.filter(comment => comment.id !== action.payload.id)
 
-        case VOTE_COMMENT:
+        case types.VOTE_COMMENT:
             newState = [ ...state ]
             let index = state.findIndex(comment => comment.id === action.payload.data.id)
             newState[index] = action.payload.data

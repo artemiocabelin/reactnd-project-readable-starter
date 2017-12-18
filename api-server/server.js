@@ -10,7 +10,7 @@ const comments = require('./comments')
 
 const app = express()
 
-app.use(express.static('public'))
+app.use(express.static('build'))
 app.use(cors())
 
 
@@ -310,6 +310,10 @@ app.delete('/comments/:id', (req, res) => {
               })
           }
       )
+})
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build/index.html'))
 })
 
 app.listen(config.port, () => {

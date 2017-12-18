@@ -1,5 +1,4 @@
-import { SET_COMMENT_NAV_STATUS } from '../actions'
-
+import * as types from '../actions/types'
 
 let commentNav = {
       isActive: false,
@@ -8,7 +7,7 @@ let commentNav = {
 
 export default function (state = commentNav, action) {
     switch(action.type) {
-        case SET_COMMENT_NAV_STATUS:
+        case types.SET_COMMENT_NAV_STATUS:
             return {...state, isActive : action.payload}
 
         default:
